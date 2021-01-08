@@ -5,6 +5,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>emailService</module>
+        <module>log</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
