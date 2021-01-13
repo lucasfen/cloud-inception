@@ -57,8 +57,8 @@
     </appender>
 
     <!-- root 默认日志配置 ，只能为ERROR或者WARN！-->
-    <root level="error">
-        <appender-ref ref="ERROR_FILE"/>
+    <root level="info">
+        <appender-ref ref="console"/>
     </root>
 
     <!--业务模块的包的日志配置-->

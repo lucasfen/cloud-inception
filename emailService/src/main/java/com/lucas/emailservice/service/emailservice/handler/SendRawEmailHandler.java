@@ -2,6 +2,8 @@ package com.lucas.emailservice.service.emailservice.handler;
 
 import java.util.List;
 
+import com.lucas.emailservice.dao.entity.EmailInfo;
+import com.lucas.emailservice.dao.mapper.EmailInfoMapper;
 import com.lucas.emailservice.dto.SendRawEmailReqData;
 import com.lucas.emailservice.service.emailservice.EmailHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,9 @@ public class SendRawEmailHandler {
     @Autowired
     private EmailHelper emailHelper;
 
+    @Autowired
+    private EmailInfoMapper emailInfoMapper;
+
     public void handleSendRawEmail(SendRawEmailReqData request) {
         List<String> receiverEmailList = request.getReceiverEmailList();
         String senderEmail = request.getSenderEmail();
@@ -28,6 +33,7 @@ public class SendRawEmailHandler {
                 return;
             }
             emailHelper.sendHtmlEmailJava(senderEmail, receiverEmail, emailContent, emailSubject);
+            emailInfoMapper.addEmailInfo(new EmailInfo(receiverEmail, senderEmail, emailSubject));
         }
     }
 }
