@@ -10,14 +10,14 @@
         </commentGenerator>
         <!-- 数据库链接URL、用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/lucas?characterEncoding=utf8&amp;useSSL=false&amp;tinyInt1isBit=false&amp;allowPublicKeyRetrieval=true"
-                        userId="root" password="root">
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/lucas_operation?serverTimezone=UTC&amp;characterEncoding=utf8&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"
+                        userId="root" password="19961218sun;">
         </jdbcConnection>
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
         <!-- 生成模型的包名和位置 -->
-        <javaModelGenerator targetPackage="com.lucas.model"
+        <javaModelGenerator targetPackage="com.lucas.dal.model"
                             targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
@@ -28,7 +28,7 @@
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
         <!-- 生成DAO的包名和位置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lucas.mapper"
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.lucas.dal.mapper"
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
@@ -39,21 +39,21 @@
 <!--        <table tableName="available_points" domainObjectName="AvailablePoints" enableCountByExample="false" enableUpdateByExample="false"-->
 <!--               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
 <!--        </table>-->
-        <table tableName="referral_user_info" domainObjectName="ReferralUserInfo" enableCountByExample="false" enableUpdateByExample="false"
+<!--        <table tableName="referral_user_info" domainObjectName="ReferralUserInfo" enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+<!--        </table>-->
+        <table tableName="commission" domainObjectName="Commission" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
         </table>
-        <table tableName="commission" domainObjectName="ReferralUserInfo" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="redeem_cash" domainObjectName="RedeemCash" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
         </table>
-        <table tableName="redeem_cash" domainObjectName="ReferralUserInfo" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-        <table tableName="redeem_coupon" domainObjectName="ReferralUserInfo" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
-        <table tableName="redeem_product" domainObjectName="ReferralUserInfo" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
-        </table>
+<!--        <table tableName="redeem_coupon" domainObjectName="ReferralUserInfo" enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+<!--        </table>-->
+<!--        <table tableName="redeem_product" domainObjectName="ReferralUserInfo" enableCountByExample="false" enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">-->
+<!--        </table>-->
 
     </context>
 </generatorConfiguration>
