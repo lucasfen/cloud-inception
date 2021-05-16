@@ -1,4 +1,4 @@
-package com.lucas.util;
+package com.lucas.util.ip;
 
 import java.net.InetAddress;
 import javax.servlet.http.HttpServletRequest;
