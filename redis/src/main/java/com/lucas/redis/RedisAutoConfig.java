@@ -17,6 +17,7 @@ import org.springframework.boot.autoconfigure.data.redis.RedisProperties.Sentine
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.connection.*;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisClientConfiguration.JedisClientConfigurationBuilder;
@@ -32,199 +33,226 @@ import org.springframework.util.StringUtils;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
- * @Author: Jimmy
+ * @Author: lucas
  * @Date: 2020-02-29 23:00
  */
 @Configuration
 public class RedisAutoConfig {
 
-    @Bean(name = "vesyncRedisProperties")
-    @ConfigurationProperties(prefix = "vesync.redis")
-    @ConditionalOnProperty(prefix = "vesync.redis", name = "enable", havingValue = "true")
-    public RedisAutoProperties vesyncRedisProperties() {
-        return new RedisAutoProperties("vesync-redis-pool");
+//    @Bean(name = "vesyncRedisProperties")
+//    @ConfigurationProperties(prefix = "vesync.redis")
+//    @ConditionalOnProperty(prefix = "vesync.redis", name = "enable", havingValue = "true")
+//    public RedisAutoProperties vesyncRedisProperties() {
+//        return new RedisAutoProperties("vesync-redis-pool");
+//    }
+//
+//    @Bean(name = "statRedisProperties")
+//    @ConfigurationProperties(prefix = "stat.redis")
+//    @ConditionalOnProperty(prefix = "stat.redis", name = "enable", havingValue = "true")
+//    public RedisAutoProperties statRedisProperties() {
+//        return new RedisAutoProperties("stat-redis-pool");
+//    }
+//
+//    @Bean(name = "redis7aRedisProperties")
+//    @ConfigurationProperties(prefix = "redis7a.redis")
+//    @ConditionalOnProperty(prefix = "redis7a.redis", name = "enable", havingValue = "true")
+//    public RedisAutoProperties redis7aRedisProperties() {
+//        return new RedisAutoProperties("redis7a-redis-pool");
+//    }
+//
+//    @Bean(name = "vdmpRedisProperties")
+//    @ConditionalOnProperty(prefix = "vdmp.redis", name = "enable", havingValue = "true")
+//    @ConfigurationProperties(prefix = "vdmp.redis")
+//    public RedisAutoProperties vdmpRedisProperties() {
+//        return new RedisAutoProperties("vdmp-redis-pool");
+//    }
+//
+//    @Bean(name = "assureaptRedisProperties")
+//    @ConditionalOnProperty(prefix = "assureapt.redis", name = "enable", havingValue = "true")
+//    @ConfigurationProperties(prefix = "assureapt.redis")
+//    public RedisAutoProperties assureaptRedisProperties() {
+//        return new RedisAutoProperties("assureapt-redis-pool");
+//    }
+//
+//    @Bean(name = "deviceRedisProperties")
+//    @ConditionalOnProperty(prefix = "device.redis", name = "enable", havingValue = "true")
+//    @ConfigurationProperties(prefix = "device.redis")
+//    public RedisAutoProperties devRedisProperties() {
+//        return new RedisAutoProperties("device-redis-pool");
+//    }
+//
+//    @Bean(name = "userRedisProperties")
+//    @ConditionalOnProperty(prefix = "user.redis", name = "enable", havingValue = "true")
+//    @ConfigurationProperties(prefix = "user.redis")
+//    public RedisAutoProperties userRedisProperties() {
+//        return new RedisAutoProperties("user-redis-pool");
+//    }
+//
+//    @Bean("vesyncConnectionFactory")
+//    @ConditionalOnBean(name = "vesyncRedisProperties")
+//    public RedisConnectionFactory vesyncConnectionFactory(@Qualifier("vesyncRedisProperties") RedisAutoProperties redisProperties) {
+//        return createRedisConnectionFactory(redisProperties);
+//    }
+//
+//    @Bean("statConnectionFactory")
+//    @ConditionalOnBean(name = "statRedisProperties")
+//    public RedisConnectionFactory statConnectionFactory(@Qualifier("statRedisProperties") RedisAutoProperties redisProperties) {
+//        return createRedisConnectionFactory(redisProperties);
+//    }
+//
+//    @Bean("redis7aConnectionFactory")
+//    @ConditionalOnBean(name = "redis7aRedisProperties")
+//    public RedisConnectionFactory redis7aConnectionFactory(@Qualifier("redis7aRedisProperties") RedisAutoProperties redisProperties) {
+//        return createRedisConnectionFactory(redisProperties);
+//    }
+//
+//    @Bean("vdmpConnectionFactory")
+//    @ConditionalOnBean(name = "vdmpRedisProperties")
+//    public RedisConnectionFactory vdmpConnectionFactory(@Qualifier("vdmpRedisProperties") RedisAutoProperties redisProperties) {
+//        return createRedisConnectionFactory(redisProperties);
+//
+//    }
+//
+//    @Bean("assureaptConnectionFactory")
+//    @ConditionalOnBean(name = "assureaptRedisProperties")
+//    public RedisConnectionFactory assureaptConnectionFactory(@Qualifier("assureaptRedisProperties") RedisAutoProperties redisProperties) {
+//        return createRedisConnectionFactory(redisProperties);
+//
+//    }
+//
+//    @Bean("deviceConnectionFactory")
+//    @ConditionalOnBean(name = "deviceRedisProperties")
+//    public RedisConnectionFactory deviceConnectionFactory(@Qualifier("deviceRedisProperties") RedisAutoProperties redisProperties) {
+//        return createRedisConnectionFactory(redisProperties);
+//    }
+//
+//    @Bean("userConnectionFactory")
+//    @ConditionalOnBean(name = "userRedisProperties")
+//    public RedisConnectionFactory userConnectionFactory(@Qualifier("userRedisProperties") RedisAutoProperties redisProperties) {
+//        return createRedisConnectionFactory(redisProperties);
+//    }
+//
+//    @Bean("vesyncStringRedisTemplate")
+//    @ConditionalOnBean(name = "vesyncConnectionFactory")
+//    public StringRedisTemplate vesyncStringRedisTemplate(@Qualifier("vesyncConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createStringRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("statStringRedisTemplate")
+//    @ConditionalOnBean(name = "statConnectionFactory")
+//    public StringRedisTemplate statStringRedisTemplate(@Qualifier("statConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createStringRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("redis7aStringTemplate")
+//    @ConditionalOnBean(name = "redis7aConnectionFactory")
+//    public StringRedisTemplate redis7aStringTemplate(@Qualifier("redis7aConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createStringRedisTemplate(redisConnectionFactory);
+//    }
+//
+//    @Bean("vdmpStringRedisTemplate")
+//    @ConditionalOnBean(name = "vdmpConnectionFactory")
+//    public StringRedisTemplate vdmpStringRedisTemplate(@Qualifier("vdmpConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createStringRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("assureaptStringRedisTemplate")
+//    @ConditionalOnBean(name = "assureaptConnectionFactory")
+//    public StringRedisTemplate assureaptStringRedisTemplate(@Qualifier("assureaptConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createStringRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("deviceStringRedisTemplate")
+//    @ConditionalOnBean(name = "deviceConnectionFactory")
+//    public StringRedisTemplate deviceStringRedisTemplate(@Qualifier("deviceConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createStringRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("userStringRedisTemplate")
+//    @ConditionalOnBean(name = "userConnectionFactory")
+//    public StringRedisTemplate userStringRedisTemplate(@Qualifier("userConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createStringRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("vesyncRedisTemplate")
+//    @ConditionalOnBean(name = "vesyncConnectionFactory")
+//    public RedisTemplate<Object, Object> vesyncRedisTemplate(
+//            @Qualifier("vesyncConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createRedisTemplate(redisConnectionFactory);
+//    }
+//
+//    @Bean("statRedisTemplate")
+//    @ConditionalOnBean(name = "statConnectionFactory")
+//    public RedisTemplate<Object, Object> statRedisTemplate(
+//            @Qualifier("statConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("redis7aTemplate")
+//    @ConditionalOnBean(name = "redis7aConnectionFactory")
+//    public RedisTemplate<Object, Object> redis7aTemplate(@Qualifier("redis7aConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("vdmpRedisTemplate")
+//    @ConditionalOnBean(name = "vdmpConnectionFactory")
+//    public RedisTemplate<Object, Object> vdmpRedisTemplate(@Qualifier("vdmpConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createRedisTemplate(redisConnectionFactory);
+//
+//    }
+//    @Bean("assureaptRedisTemplate")
+//    @ConditionalOnBean(name = "assureaptConnectionFactory")
+//    public RedisTemplate<Object, Object> assureaptRedisTemplate(@Qualifier("assureaptConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createRedisTemplate(redisConnectionFactory);
+//
+//    }
+//
+//    @Bean("deviceRedisTemplate")
+//    @ConditionalOnBean(name = "deviceConnectionFactory")
+//    public RedisTemplate<Object, Object> deviceRedisTemplate(
+//            @Qualifier("deviceConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createRedisTemplate(redisConnectionFactory);
+//    }
+//
+//    @Bean("userRedisTemplate")
+//    @ConditionalOnBean(name = "userConnectionFactory")
+//    public RedisTemplate<Object, Object> userRedisTemplate(
+//            @Qualifier("userConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+//        return createRedisTemplate(redisConnectionFactory);
+//    }
+
+
+    @Primary
+    @Bean(name="lucasRedisProperties")
+    @ConfigurationProperties("lucas.redis")
+    @ConditionalOnProperty(prefix = "lucas.redis", name = "enable", havingValue = "true")
+    public RedisAutoProperties lucasRedisProperties() {
+        return new RedisAutoProperties("lucas-redis");
     }
 
-    @Bean(name = "statRedisProperties")
-    @ConfigurationProperties(prefix = "stat.redis")
-    @ConditionalOnProperty(prefix = "stat.redis", name = "enable", havingValue = "true")
-    public RedisAutoProperties statRedisProperties() {
-        return new RedisAutoProperties("stat-redis-pool");
+    @Bean(name="lucasRedisConnectionFactory")
+    @ConditionalOnBean(name = "lucasRedisProperties")
+    public RedisConnectionFactory lucasRedisConnectionFactory(@Qualifier("lucasRedisProperties") RedisAutoProperties redisAutoProperties) {
+        return createRedisConnectionFactory(redisAutoProperties);
     }
 
-    @Bean(name = "redis7aRedisProperties")
-    @ConfigurationProperties(prefix = "redis7a.redis")
-    @ConditionalOnProperty(prefix = "redis7a.redis", name = "enable", havingValue = "true")
-    public RedisAutoProperties redis7aRedisProperties() {
-        return new RedisAutoProperties("redis7a-redis-pool");
-    }
-
-    @Bean(name = "vdmpRedisProperties")
-    @ConditionalOnProperty(prefix = "vdmp.redis", name = "enable", havingValue = "true")
-    @ConfigurationProperties(prefix = "vdmp.redis")
-    public RedisAutoProperties vdmpRedisProperties() {
-        return new RedisAutoProperties("vdmp-redis-pool");
-    }
-
-    @Bean(name = "assureaptRedisProperties")
-    @ConditionalOnProperty(prefix = "assureapt.redis", name = "enable", havingValue = "true")
-    @ConfigurationProperties(prefix = "assureapt.redis")
-    public RedisAutoProperties assureaptRedisProperties() {
-        return new RedisAutoProperties("assureapt-redis-pool");
-    }
-
-    @Bean(name = "deviceRedisProperties")
-    @ConditionalOnProperty(prefix = "device.redis", name = "enable", havingValue = "true")
-    @ConfigurationProperties(prefix = "device.redis")
-    public RedisAutoProperties devRedisProperties() {
-        return new RedisAutoProperties("device-redis-pool");
-    }
-
-    @Bean(name = "userRedisProperties")
-    @ConditionalOnProperty(prefix = "user.redis", name = "enable", havingValue = "true")
-    @ConfigurationProperties(prefix = "user.redis")
-    public RedisAutoProperties userRedisProperties() {
-        return new RedisAutoProperties("user-redis-pool");
-    }
-
-    @Bean("vesyncConnectionFactory")
-    @ConditionalOnBean(name = "vesyncRedisProperties")
-    public RedisConnectionFactory vesyncConnectionFactory(@Qualifier("vesyncRedisProperties") RedisAutoProperties redisProperties) {
-        return createRedisConnectionFactory(redisProperties);
-    }
-
-    @Bean("statConnectionFactory")
-    @ConditionalOnBean(name = "statRedisProperties")
-    public RedisConnectionFactory statConnectionFactory(@Qualifier("statRedisProperties") RedisAutoProperties redisProperties) {
-        return createRedisConnectionFactory(redisProperties);
-    }
-
-    @Bean("redis7aConnectionFactory")
-    @ConditionalOnBean(name = "redis7aRedisProperties")
-    public RedisConnectionFactory redis7aConnectionFactory(@Qualifier("redis7aRedisProperties") RedisAutoProperties redisProperties) {
-        return createRedisConnectionFactory(redisProperties);
-    }
-
-    @Bean("vdmpConnectionFactory")
-    @ConditionalOnBean(name = "vdmpRedisProperties")
-    public RedisConnectionFactory vdmpConnectionFactory(@Qualifier("vdmpRedisProperties") RedisAutoProperties redisProperties) {
-        return createRedisConnectionFactory(redisProperties);
-
-    }
-
-    @Bean("assureaptConnectionFactory")
-    @ConditionalOnBean(name = "assureaptRedisProperties")
-    public RedisConnectionFactory assureaptConnectionFactory(@Qualifier("assureaptRedisProperties") RedisAutoProperties redisProperties) {
-        return createRedisConnectionFactory(redisProperties);
-
-    }
-
-    @Bean("deviceConnectionFactory")
-    @ConditionalOnBean(name = "deviceRedisProperties")
-    public RedisConnectionFactory deviceConnectionFactory(@Qualifier("deviceRedisProperties") RedisAutoProperties redisProperties) {
-        return createRedisConnectionFactory(redisProperties);
-    }
-
-    @Bean("userConnectionFactory")
-    @ConditionalOnBean(name = "userRedisProperties")
-    public RedisConnectionFactory userConnectionFactory(@Qualifier("userRedisProperties") RedisAutoProperties redisProperties) {
-        return createRedisConnectionFactory(redisProperties);
-    }
-
-    @Bean("vesyncStringRedisTemplate")
-    @ConditionalOnBean(name = "vesyncConnectionFactory")
-    public StringRedisTemplate vesyncStringRedisTemplate(@Qualifier("vesyncConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+    @Bean(name="lucasStringRedisTemplate")
+    @ConditionalOnBean(name="lucasRedisConnectionFactory")
+    public StringRedisTemplate lucasStringRedisTemplate(@Qualifier("lucasRedisConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
         return createStringRedisTemplate(redisConnectionFactory);
-
     }
 
-    @Bean("statStringRedisTemplate")
-    @ConditionalOnBean(name = "statConnectionFactory")
-    public StringRedisTemplate statStringRedisTemplate(@Qualifier("statConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createStringRedisTemplate(redisConnectionFactory);
-
-    }
-
-    @Bean("redis7aStringTemplate")
-    @ConditionalOnBean(name = "redis7aConnectionFactory")
-    public StringRedisTemplate redis7aStringTemplate(@Qualifier("redis7aConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createStringRedisTemplate(redisConnectionFactory);
-    }
-
-    @Bean("vdmpStringRedisTemplate")
-    @ConditionalOnBean(name = "vdmpConnectionFactory")
-    public StringRedisTemplate vdmpStringRedisTemplate(@Qualifier("vdmpConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createStringRedisTemplate(redisConnectionFactory);
-
-    }
-
-    @Bean("assureaptStringRedisTemplate")
-    @ConditionalOnBean(name = "assureaptConnectionFactory")
-    public StringRedisTemplate assureaptStringRedisTemplate(@Qualifier("assureaptConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createStringRedisTemplate(redisConnectionFactory);
-
-    }
-
-    @Bean("deviceStringRedisTemplate")
-    @ConditionalOnBean(name = "deviceConnectionFactory")
-    public StringRedisTemplate deviceStringRedisTemplate(@Qualifier("deviceConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createStringRedisTemplate(redisConnectionFactory);
-
-    }
-
-    @Bean("userStringRedisTemplate")
-    @ConditionalOnBean(name = "userConnectionFactory")
-    public StringRedisTemplate userStringRedisTemplate(@Qualifier("userConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createStringRedisTemplate(redisConnectionFactory);
-
-    }
-
-    @Bean("vesyncRedisTemplate")
-    @ConditionalOnBean(name = "vesyncConnectionFactory")
-    public RedisTemplate<Object, Object> vesyncRedisTemplate(
-            @Qualifier("vesyncConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createRedisTemplate(redisConnectionFactory);
-    }
-
-    @Bean("statRedisTemplate")
-    @ConditionalOnBean(name = "statConnectionFactory")
-    public RedisTemplate<Object, Object> statRedisTemplate(
-            @Qualifier("statConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createRedisTemplate(redisConnectionFactory);
-
-    }
-
-    @Bean("redis7aTemplate")
-    @ConditionalOnBean(name = "redis7aConnectionFactory")
-    public RedisTemplate<Object, Object> redis7aTemplate(@Qualifier("redis7aConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createRedisTemplate(redisConnectionFactory);
-
-    }
-
-    @Bean("vdmpRedisTemplate")
-    @ConditionalOnBean(name = "vdmpConnectionFactory")
-    public RedisTemplate<Object, Object> vdmpRedisTemplate(@Qualifier("vdmpConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createRedisTemplate(redisConnectionFactory);
-
-    }
-    @Bean("assureaptRedisTemplate")
-    @ConditionalOnBean(name = "assureaptConnectionFactory")
-    public RedisTemplate<Object, Object> assureaptRedisTemplate(@Qualifier("assureaptConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createRedisTemplate(redisConnectionFactory);
-
-    }
-
-    @Bean("deviceRedisTemplate")
-    @ConditionalOnBean(name = "deviceConnectionFactory")
-    public RedisTemplate<Object, Object> deviceRedisTemplate(
-            @Qualifier("deviceConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
-        return createRedisTemplate(redisConnectionFactory);
-    }
-
-    @Bean("userRedisTemplate")
-    @ConditionalOnBean(name = "userConnectionFactory")
-    public RedisTemplate<Object, Object> userRedisTemplate(
-            @Qualifier("userConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
+    @Bean(name="lucasRedisTemplate")
+    @ConditionalOnBean(name="lucasRedisConnectionFactory")
+    public RedisTemplate<Object, Object> lucasRedisTemplate(@Qualifier("lucasRedisConnectionFactory") RedisConnectionFactory redisConnectionFactory) {
         return createRedisTemplate(redisConnectionFactory);
     }
 
@@ -361,9 +389,7 @@ public class RedisAutoConfig {
         }
         return config;
 
-
     }
-
 
     private JedisPoolConfig jedisPoolConfig(RedisAutoProperties redisProperties) {
         JedisPoolConfig config = new JedisPoolConfig();

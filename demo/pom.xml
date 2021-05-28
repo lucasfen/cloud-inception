@@ -14,6 +14,9 @@
 
     <properties>
         <common.version>1.0.0.0</common.version>
+        <dal.version>1.0.0.0</dal.version>
+        <redis.version>1.0.0.0</redis.version>
+        <util.version>1.0.0.0</util.version>
     </properties>
 
     <dependencies>
@@ -21,13 +24,17 @@
         <dependency>
             <groupId>com.lucas</groupId>
             <artifactId>dal</artifactId>
-            <version>1.0.0.0</version>
+            <version>${dal.version}</version>
         </dependency>
-
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.11</version>
+            <groupId>com.lucas</groupId>
+            <artifactId>redis</artifactId>
+            <version>${redis.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lucas</groupId>
+            <artifactId>util</artifactId>
+            <version>1.0.0.0</version>
         </dependency>
 
     </dependencies>

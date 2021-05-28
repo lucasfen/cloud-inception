@@ -15,6 +15,7 @@
         <module>mqtt</module>
         <module>mongo</module>
         <module>dal</module>
+        <module>kafka</module>
     </modules>
 
     <parent>

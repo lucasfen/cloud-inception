@@ -22,7 +22,7 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 /**
- * @author wayne
+ * @author lucas
  * @date 2021/4/23
  */
 @Configuration
