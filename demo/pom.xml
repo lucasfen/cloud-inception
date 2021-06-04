@@ -17,6 +17,7 @@
         <dal.version>1.0.0.0</dal.version>
         <redis.version>1.0.0.0</redis.version>
         <util.version>1.0.0.0</util.version>
+        <kafka.version>1.0.0.0</kafka.version>
     </properties>
 
     <dependencies>
@@ -34,7 +35,12 @@
         <dependency>
             <groupId>com.lucas</groupId>
             <artifactId>util</artifactId>
-            <version>1.0.0.0</version>
+            <version>${util.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.lucas</groupId>
+            <artifactId>kafka</artifactId>
+            <version>${kafka.version}</version>
         </dependency>
 
     </dependencies>
