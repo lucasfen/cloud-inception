@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class TestKafkaConsumer {
 
-    @KafkaListener(topics = "mykafka")
-    public void receiver(String msg) {
-        log.info("receive:" + msg);
-    }
+//    @KafkaListener(topics = "mykafka")
+//    public void receiver(String msg) {
+//        log.info("receive:" + msg);
+//    }
 }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_08hrmhx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="emailTask" isExecutable="true">
+    <bpmn:startEvent id="addEmailTask" name="addEmailTask">
+      <bpmn:outgoing>Flow_1n709gh</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1n709gh" sourceRef="addEmailTask" targetRef="firstReview" />
+    <bpmn:userTask id="firstReview" name="firstReveiw" camunda:assignee="${firstReviewer}">
+      <bpmn:incoming>Flow_1n709gh</bpmn:incoming>
+      <bpmn:outgoing>Flow_03vm628</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="secondReview" name="secondReview" camunda:assignee="${secondReviewer}">
+      <bpmn:incoming>Flow_03vm628</bpmn:incoming>
+      <bpmn:outgoing>Flow_1kvhjhx</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_0yiu5h1" name="endReview">
+      <bpmn:incoming>Flow_1kvhjhx</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1kvhjhx" sourceRef="secondReview" targetRef="Event_0yiu5h1" />
+    <bpmn:sequenceFlow id="Flow_03vm628" sourceRef="firstReview" targetRef="secondReview" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="emailTask">
+      <bpmndi:BPMNEdge id="Flow_1kvhjhx_di" bpmnElement="Flow_1kvhjhx">
+        <di:waypoint x="720" y="117" />
+        <di:waypoint x="842" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1n709gh_di" bpmnElement="Flow_1n709gh">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="370" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_03vm628_di" bpmnElement="Flow_03vm628">
+        <di:waypoint x="470" y="117" />
+        <di:waypoint x="620" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="addEmailTask">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="163" y="142" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09cgro3_di" bpmnElement="secondReview">
+        <dc:Bounds x="620" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0yiu5h1_di" bpmnElement="Event_0yiu5h1">
+        <dc:Bounds x="842" y="99" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="833" y="142" width="56" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tsmsvu_di" bpmnElement="firstReview">
+        <dc:Bounds x="370" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
